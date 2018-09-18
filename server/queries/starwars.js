@@ -1,3 +1,9 @@
 const axios = require('axios');
 
-module.exports = async () => await axios.get('https://swapi.co/api/people/1');
+module.exports = (root, args) => {
+  return axios.get(`https://swapi.co/api/people/${args.id}`)
+  .then(res => {
+    console.log(res.data);
+    return res.data;
+  });
+};

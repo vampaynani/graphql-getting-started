@@ -1,9 +1,22 @@
 type Query {
   info: String!
   feed: [Link!]!
+  starwars(id: ID!): Person!
+  students: [Student!]!
 }
 type Mutation {
   post(url: String!, description: String!): Link!
+}
+type Student {
+  id: ID!
+  username: String!
+  task: String!
+}
+type Person {
+  name: String!
+  height: Int!
+  mass: Int!
+  gender: String!
 }
 type Link {
   id: ID!
