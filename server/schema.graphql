@@ -1,11 +1,24 @@
 type Query {
   info: String!
   feed: [Link!]!
+  link(id: ID!): Link!
+  user(id: ID!): User!
   starwars(id: ID!): Person!
   students: [Student!]!
 }
 type Mutation {
   post(url: String!, description: String!): Link!
+  signup(email: String!, password: String!): Payload!
+  login(email: String!, password: String!): Payload!
+}
+type Payload{
+  token: String
+  user: User
+}
+type User{
+  id: ID!
+  email: String!
+  links: [Link]
 }
 type Student {
   id: ID!
@@ -22,4 +35,5 @@ type Link {
   id: ID!
   description: String!
   url: String!
+  author: User
 }

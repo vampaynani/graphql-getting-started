@@ -2,7 +2,11 @@ const mongoose = require('mongoose');
 
 const LinkSchema = new mongoose.Schema({
   url: String,
-  description: String
+  description: String,
+  author: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  }
 });
 
 LinkSchema.set('toObject', {

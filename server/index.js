@@ -1,25 +1,29 @@
 const mongoose = require('mongoose');
 const { DATABASE_URL } = require('./config');
 const { GraphQLServer } = require('graphql-yoga');
-const Link = require('./models/link');
+const LinkModel = require('./models/link');
+const UserModel = require('./models/user');
 const Query = require('./queries');
+const Mutation = require('./mutations');
+const User = require('./resolvers/user');
+const Link = require('./resolvers/link');
 const typeDefs='./schema.graphql';
 
 const resolvers = {
   Query,
-  Mutation: {
-    post: async (root, args) => {
-      return await Link.create({
-        description: args.description,
-        url: args.url
-      })
-    }
-  }
+  Mutation,
+  User,
+  Link
 }
 
 const server = new GraphQLServer({
   typeDefs,
-  resolvers
+  resolvers,
+  context: incomingData => ({
+    incomingData,
+    linkModel: LinkModel,
+    userModel: UserModel
+  })
 });
 
 if (require.main === module) {

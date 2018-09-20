@@ -1,0 +1,1 @@
+module.exports = async (root, args, context) => await context.linkModel.findOne({_id: args.id});
